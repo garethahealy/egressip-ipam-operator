@@ -10,7 +10,6 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    name: setup
     steps:
       - name: Set up Go
         uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5
@@ -20,17 +19,3 @@ jobs:
           
       - name: run helm install
         run: make helm
-        
-  shared-operator-workflow:
-    name: shared-operator-workflow
-    uses: redhat-cop/github-workflows-operators/.github/workflows/release-operator.yml@v1.0.7
-    secrets:
-      COMMUNITY_OPERATOR_PAT: ${{ secrets.COMMUNITY_OPERATOR_PAT }}
-      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
-      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-    with:
-      PR_ACTOR: "raffaele.spazzoli@gmail.com"
-      RUN_UNIT_TESTS: true
-      RUN_INTEGRATION_TESTS: false
-      RUN_HELMCHART_TEST: false
-      GO_VERSION: ~1.22
